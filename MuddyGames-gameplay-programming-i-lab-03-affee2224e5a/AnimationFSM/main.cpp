@@ -17,7 +17,8 @@ int main()
 {
 	// Create the main window
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
-
+	sf::Font m_ArialBlackfont; // font used by message
+	sf::Text m_welcomeMessage; // text used for message on screen
 	// Load a sprite to display
 	sf::Texture texture;
 	if (!texture.loadFromFile("assets\\grid.png")) {
@@ -69,6 +70,19 @@ int main()
 	animated_Sword.addFrame(sf::IntRect(3, 3 + (84 * 4), 84, 84));
 	animated_Sword.addFrame(sf::IntRect(88, 3 + (84 * 4), 84, 84));
 	animated_Sword.addFrame(sf::IntRect(173, 3 + (84 * 4), 84, 84));
+
+	if (!m_ArialBlackfont.loadFromFile("assets\\FONTS\\ariblk.ttf"))
+	{
+		std::cout << "problem loading arial black font" << std::endl;
+	}
+	m_welcomeMessage.setFont(m_ArialBlackfont);
+	m_welcomeMessage.setString("Space to jump\nW to climb\nQ to sword\nE to hammer\nR to shovel\nA and D for movement");
+	m_welcomeMessage.setStyle(sf::Text::Underlined | sf::Text::Italic | sf::Text::Bold);
+	m_welcomeMessage.setPosition(400.0f, 40.0f);
+	m_welcomeMessage.setCharacterSize(25);
+	m_welcomeMessage.setOutlineColor(sf::Color::Red);
+	m_welcomeMessage.setFillColor(sf::Color::Black);
+	m_welcomeMessage.setOutlineThickness(3.0f);
 
 	// Setup the Player
 	Player player(animated_Idle);
@@ -146,7 +160,7 @@ int main()
 
 		// Draw the Players Current Animated Sprite
 		window.draw(player.getAnimatedSprite());
-
+		window.draw(m_welcomeMessage);
 		// Update the window
 		window.display();
 	}
